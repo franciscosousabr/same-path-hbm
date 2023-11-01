@@ -22,7 +22,7 @@ import org.junit.Test;
 public class JPAUnitTestCase {
 
 	private EntityManagerFactory entityManagerFactory;
-	private Path<Object> namePath;
+	//private Path<Object> namePath;
 
 	@Before
 	public void init() {
@@ -52,7 +52,9 @@ public class JPAUnitTestCase {
 
 		CriteriaQuery<Long> countCriteriaQuery = getCountCriteriaQuery(
 				entityManager, false);
+
 		TypedQuery<Long> countQuery = entityManager.createQuery(countCriteriaQuery);
+
 		long count = countQuery.getSingleResult();
 
 		assertEquals(1L, count);
@@ -96,6 +98,8 @@ public class JPAUnitTestCase {
 		CriteriaQuery<Customer> criteriaQuery = builder.createQuery(Customer.class);
 		Root<Customer> root = criteriaQuery.from(Customer.class);
 
+		Path<Object> namePath = null;
+
 		if (namePath == null || recreatePath) {
 			namePath = root.get("name");
 		}
@@ -110,7 +114,9 @@ public class JPAUnitTestCase {
 		Root<Customer> root = criteriaQuery.from(Customer.class);
 		criteriaQuery.select(builder.count(root));
 
-		if (namePath == null || recreatePath) {
+		Path<Object> namePath = null;
+
+		if (namePath == null || recreatePath ) {
 			namePath = root.get("name");
 		}
 
